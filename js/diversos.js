@@ -1,6 +1,9 @@
 const modalsDiversos = require('./modal_diversos')
 const md = new modalsDiversos()
 
+const funciones = require('./funciones')
+const f = new funciones()
+
 module.exports = class Diversos {
 
 	load_remitentes(){
@@ -122,7 +125,7 @@ module.exports = class Diversos {
 
 	form_submit(){
 		
-		$('form#diversos').validate({
+		$('form#form-diversos').validate({
 			rules:{
 				idTipoDocto:{required:true},
 				idSubTipoDocumento:{required: true},
@@ -133,6 +136,7 @@ module.exports = class Diversos {
 				idAccion:{required:true},
 				nombreRemitente:{required:true},
 				puestoRemitente:{required:true},
+				idTurnado:{required:true},
 				folio:{
 					required:true,
 					number:true,
@@ -205,8 +209,7 @@ module.exports = class Diversos {
 
 			},
 			submitHandler:function(form){
-
-				let formData = new FormData(document.getElementById('diversos'))
+				let formData = new FormData(document.getElementById('form-diversos'))
 				f.new_insert(formData,'VolantesDiversos')
 
 			},
@@ -217,11 +220,73 @@ module.exports = class Diversos {
 
 	form_update(){
 
-		$('form#diversos-udpate').submit(function(e){
-			e.preventDefault()
-			let datos = $(this).serializeArray()
-			base.new_update(datos,'VolantesDiversos')
+		$('form#diversos-udpate').validate({
+		rules:{
+			hRecepcion:{required :true},
+			idCaracter:{required:true},
+			idTurnado:{required:true},
+			idAccion:{required:true},
+			numDocumento:{
+				required:true,
+				maxlength:20
+			},
+			anexos:{
+				required:true,
+				number:true,
+				min:0
+			},
+			fDocumento:{
+				required:true,
+				date:true
+			},
+			fRecepcion:{
+				required:true,
+				date:true
+			}
+			
+		},
+		messages:{
+			hRecepcion:'Obligatorio',
+			idTurnado:'Obligatorio',
+			idAccion:'Obligatorio',
+			idCaracter:'Obligatorio',
+			folio: {
+				required: 'Obligatorio',
+				number:'Solo acepta numeros',
+				min: 'Valor No valido'
+			},
+			subFolio:{
+				required: 'Obligatorio',
+				number:'Solo acepta numeros',
+				min: 'Valor No valido'	
+			},
+			numDocumento:{
+				required:'Obligatorio',
+				maxlength:'Maximo 20 Caracteres',
+			},anexos:{
+				required: 'Obligatorio',
+				number:'Solo acepta numeros',
+				min: 'Valor No valido'
+			},
+			fDocumento:{
+				required:'Obligatorio',
+				date:'Formato Incorrecto'
+			},
+			fRecepcion:{
+				required:'Obligatorio',
+				date:'Fomrato Incorrecto'
+			}
+
+		},
+		submitHandler:function(form){
+			let formData = $('form#diversos-udpate').serializeArray()
+			f.new_update(formData,'VolantesDiversos')
+
+		},
+		errorClass: "is-invalid"
 		})
+
+
 
 	}
 

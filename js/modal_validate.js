@@ -64,4 +64,33 @@ module.exports = class Modal_validate {
 			}
 		})
 	}
+
+	order(ruta,html){
+
+		$.confirm({
+			title: 'Ordernar Registros',
+			content : html,
+			icon:'fa fa-signal',
+			type:'blue',
+			columnClass: 'col-md-10 col-md-offset-1',
+			draggable:false,
+			buttons:{
+				confirm:{
+					text:'Aceptar',
+					btnClass:'btn-primary',
+					action:function(){
+
+						let campo = $('select#campo :selected').val() 
+						let tipo = $('select#tipo :selected').val() 
+						let year = $('select#year :selected').val()
+
+						if( campo != '' && tipo != '' && year != ''){
+							location.href = `/SIA/juridico/${ruta}?campo=${campo}&tipo=${tipo}&year=${year}`
+						}
+					}
+				}
+			}
+		})	
+		
+	}
 }

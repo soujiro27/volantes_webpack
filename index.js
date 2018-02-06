@@ -11,7 +11,8 @@ $('input.fechaInput').datepicker({ dateFormat: "yy-mm-dd" });
 f.cancel()
 f.load_subdocumentos()
 f.load_update_form()
-
+f.ordenamiento()
+f.logout()
 
 vf.form_submit()
 vf.form_update()
@@ -22,3 +23,4 @@ d.load_remitentes()
 d.turnar()
 d.turnar_update()
 d.form_submit()
+d.form_update()

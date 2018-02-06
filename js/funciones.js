@@ -12,6 +12,20 @@ module.exports = class Funciones {
 		});
 	}
 
+	logout(){
+		$('div#logout').click(()=>{
+			$('ul.logout-menu').toggle()
+		})
+	}
+
+	ordenamiento(){
+		$('button#btn-order').click(function(){
+			let ruta = $(this).data('ruta')
+			let html = require('./../templates/order.html')
+			modal.order(ruta,html)
+		})
+	}
+
 	load_subdocumentos() {
 		let self = this;
 		$('select#documento').change(function(){
